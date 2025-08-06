@@ -2,3 +2,7 @@
 1. Create the project
 2. Pagkage it to jar or war file
    Steps for the packaging jar file
+   a. Use the Maven tab (on right side of IntelliJ)
+   b. go to "Execute maven goal" tab
+   c. run "mvn clean install"
+   Check for the target folder for the JAR file, the file has been created there
