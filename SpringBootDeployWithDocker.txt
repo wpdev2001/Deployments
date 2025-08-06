@@ -12,4 +12,9 @@
    COPY . /urs/src/myapp/
    CMD [ "java", "-jar", "TestApp-0.0.1-SNAPSHOT.jar" ]
    EXPOSE 9090
-4. Build the docker file using: docker build -t bootimage .
+4. Build the docker file using: 
+      docker build -t bootimage .
+5. Run the docker image using command(check for the image first and also the port which you've used, in this case it is 9090)
+      docker run --name bootProject -it -p 9090:9090 -d bootimage
+6. To stop it you could use
+      docker stop bootProject
