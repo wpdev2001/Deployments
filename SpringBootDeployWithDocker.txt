@@ -1,0 +1,4 @@
+# Steps for the deployment
+1. Create the project
+2. Pagkage it to jar or war file
+   Steps for the packaging jar file
