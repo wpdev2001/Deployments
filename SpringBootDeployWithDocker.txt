@@ -57,3 +57,13 @@
    If you want to make :1.0 the default tag, you can retag it locally:
    >> docker tag wpdev2001/todoapp:1.0 wpdev2001/todoapp:latest
    >> docker run -d --name mytodoapp -p 9090:9090 --network=bootApp -e MYSQL_HOST=mysqldb -e MYSQL_PORT=3306 wpdev2001/todoapp
+
+10. create an Ubuntu VM on aws and connect to it using ssh
+   >> ssh -i "bootkey.pem" ubuntu@ec2-13-233-151-44.ap-south-1.compute.amazonaws.com
+   >> sudo su
+   >> apt update & upgrade
+   >> sudo apt-get install docker.io -y     // intalling docker on ec2
+   Run following commands to fetch and run the cotainers directly(If the image isn't present locally then it will directly fetch from dockerhub)
+   >> docker run -d --name mysqldb -p 3307:3306 --network=bootApp -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=testdb mysql
+   >> docker run -d --name mytodoapp -p 9090:9090 --network=bootApp -e MYSQL_HOST=mysqldb -e MYSQL_PORT=3306 wpdev2001/todoapp:1.0
+   Temp url: http://13.200.65.78:9090/
