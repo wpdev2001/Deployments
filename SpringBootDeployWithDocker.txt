@@ -30,11 +30,10 @@
 
    How to create the common network in docker and what is its use?
    >> docker network create bootApp
-      use case: Creating a common user-defined network (like bootApp) in Docker is useful when you want multiple containers to communicate with each other by name,                           especially in a multi-container setup such as:
-
+      use case: Creating a common user-defined network (like bootApp) in Docker is useful when you want multiple containers to communicate with each other by name, especially in a multi-container setup such as:
                   A Spring Boot application running in one container
                   A MySQL database running in another container
-                  Both containers can be connected to the same custom network (bootApp). This allows the Spring Boot app to connect to MySQL using the container name (e.g.,                    mysqldb) as the hostname, without needing to expose or map ports to the host machine.
+                  Both containers can be connected to the same custom network (bootApp). This allows the Spring Boot app to connect to MySQL using the container name (e.g., mysqldb) as the hostname, without needing to expose or map ports to the host machine.
       
 
 6. To stop it you could use
