@@ -1,22 +1,44 @@
 # Steps for the deployment
 1. Create the project
+
 2. Pagkage it to jar or war file
    Steps for the packaging jar file
    a. Use the Maven tab (on right side of IntelliJ)
    b. go to "Execute maven goal" tab
    c. run "mvn clean install"
    Check for the target folder for the JAR file, the file has been created there
+
 3. Create a docker file
-   From openjdk:21
-   WORKDIR /urs/src/myapp
-   COPY . /urs/src/myapp/
-   CMD [ "java", "-jar", "TestApp-0.0.1-SNAPSHOT.jar" ]
-   EXPOSE 9090
+   >> From openjdk:21
+   >> WORKDIR /urs/src/myapp
+   >> COPY . /urs/src/myapp/
+   >> CMD [ "java", "-jar", "TestApp-0.0.1-SNAPSHOT.jar" ]
+   >> EXPOSE 9090
+
 4. Build the docker file using: 
-      docker build -t bootimage .
+    >>  docker build -t bootimage .
+
 5. Run the docker image using command(check for the image first and also the port which you've used, in this case it is 9090)
-      docker run --name bootProject -it -p 9090:9090 -d bootimage
+      >> docker run --name bootProject -it -p 9090:9090 -d bootimage
+      OR 
+      >> docker run -d --name mytodoapp -p 9090:9090 --network=bootApp -e MYSQL_HOST=mysqldb -e MYSQL_PORT=3306 todoapp  //(This command is the actual implementation where its also connecting to the mysql at specific port using a command network which we have created "bootApp")
+      NOTE: 
+         1. The first thing required is Mysql container running on docker for that use the following comamnds
+            >> docker pull mysql
+            >> docker run -d --name mysqldb -p 3307:3306 --network=bootApp -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=testdb mysql (here also we have used the common n/w)
+         2. The port which is used here is of container's side whereas my local machine is using the 3307 port for MySQL
+
+   How to create the common network in docker and what is its use?
+   >> docker network create bootApp
+      use case: Creating a common user-defined network (like bootApp) in Docker is useful when you want multiple containers to communicate with each other by name,                           especially in a multi-container setup such as:
+
+                  A Spring Boot application running in one container
+                  A MySQL database running in another container
+                  Both containers can be connected to the same custom network (bootApp). This allows the Spring Boot app to connect to MySQL using the container name (e.g.,                    mysqldb) as the hostname, without needing to expose or map ports to the host machine.
+      
+
 6. To stop it you could use
       docker stop bootProject
+
 7. To check for the logs you could run
-      docker logs
+      docker logs <container_name>
