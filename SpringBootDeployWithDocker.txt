@@ -104,3 +104,73 @@ docker commit --change='CMD ["java", "-jar", "/tmp/TodoJpa.jar"]' <container-nam
 5. Run a new container from that image
 
 docker run -p 8080:8080 image-name/todoApp:v1
+
+RUNNING SPRING APP USING DOCKER COMPOSE:
+----------------------------------------
+
+1️⃣ Manual Approach (without Docker Compose)
+
+You’d have to:
+Run MySQL container
+
+>> docker run -d \
+    --name mysql-container \
+    -e MYSQL_ROOT_PASSWORD=root \
+    -e MYSQL_DATABASE=todo_db \
+    -p 3306:3306 \
+    mysql:8.0
+
+
+Run your TodoApp container (and link to MySQL)
+>> docker run -d \
+    --name todoapp-container \
+    --link mysql-container:mysql \
+    -p 8080:8080 \
+    todoapp:latest
+
+
+Challenges with this approach:
+1. You must manually start MySQL first, then the app.
+2. You have to manage networking yourself (using --link or custom networks).
+3. Updating env variables (e.g., DB credentials) means retyping long commands.
+4. If you stop/restart, you must remember all container configs.
+5. Harder to share the setup — you’d have to give someone a list of commands.
+
+2️⃣ Using Docker Compose
+
+You write one docker-compose.yml file:
+>> 
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: todo_db
+    ports:
+      - "3306:3306"
+    networks:
+      - todo-network
+
+  todoapp:
+    build: .
+    container_name: todoapp-container
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-container:3306/todo_db
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    ports:
+      - "8080:8080"
+    networks:
+      - todo-network
+
+networks:
+  todo-network:
+    driver: bridge
+
+
+Then, simply run:
+>> docker compose up --build
