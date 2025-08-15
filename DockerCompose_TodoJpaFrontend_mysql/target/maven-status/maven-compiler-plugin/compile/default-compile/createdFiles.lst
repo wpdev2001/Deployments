@@ -1,0 +1,7 @@
+com\wp\TodoApp\Application.class
+com\wp\TodoApp\entities\Todo.class
+com\wp\TodoApp\services\TodoService.class
+com\wp\TodoApp\services\Impl\TodoServiceImpl.class
+com\wp\TodoApp\controllers\HomeController.class
+com\wp\TodoApp\controllers\TodoController.class
+com\wp\TodoApp\repositories\TodoRepository.class

@@ -1,0 +1,5 @@
+# Created at 2025-08-15T11:09:26.291
+Boot Manifest-JAR contains absolute paths in classpath 'E:\Piyush\pers\deployment\TodoJpaFrontend\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
