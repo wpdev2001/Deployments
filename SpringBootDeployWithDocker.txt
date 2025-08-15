@@ -73,3 +73,34 @@
    >> docker run -d --name mysqldb -p 3307:3306 --network=bootApp -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=testdb mysql
    >> docker run -d --name mytodoapp -p 9090:9090 --network=bootApp -e MYSQL_HOST=mysqldb -e MYSQL_PORT=3306 wpdev2001/todoapp:1.0
    Temp url: http://13.200.65.78:9090/
+
+
+MANUAL APPROACH
+---------------
+
+Suppose we already have a running container based on openjdk:21, and we want to copy our JAR file into it, run it, and create an image from that setup.
+
+1. List all files/folders inside the container (optional, for exploration)
+
+docker exec <container-name> ls -a
+
+
+2. Check /tmp folder exists inside container
+
+docker exec <container-name> ls /tmp
+
+
+You can use /tmp or any writable folder inside the container. /tmp is safe for temporary files.
+
+3. Copy your JAR file into the container
+
+docker cp target/TodoJpa.jar <container-name>:/tmp
+
+
+4. Create a new image from that container with default command
+
+docker commit --change='CMD ["java", "-jar", "/tmp/TodoJpa.jar"]' <container-name> image-name/todoApp:v1
+
+5. Run a new container from that image
+
+docker run -p 8080:8080 image-name/todoApp:v1
