@@ -15,6 +15,12 @@
    >> CMD [ "java", "-jar", "TestApp-0.0.1-SNAPSHOT.jar" ]
    >> EXPOSE 9090
 
+   OR
+
+   >> FROM OpenJDK:21 
+   >> Add target/TestApp-0.0.1-SNAPSHOT.jar test-app.jar 
+   >> ENTRYPOINT ["java", "-jar", "TestApp-0.0.1-SNAPSHOT.jar"]
+
 4. Build the docker file using: 
     >>  docker build -t bootimage .
 
