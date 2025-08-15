@@ -5,7 +5,7 @@
    Steps for the packaging jar file
    a. Use the Maven tab (on right side of IntelliJ)
    b. go to "Execute maven goal" tab
-   c. run "mvn clean install"
+   c. run "mvn clean install" or "mvn clean package"
    Check for the target folder for the JAR file, the file has been created there
 
 3. Create a docker file
