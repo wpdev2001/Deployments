@@ -19,4 +19,13 @@ public class StudentController {
     public List<Student> getStudents(){
         return studentService.getStudents();
     }
+
+    @RequestMapping("/addStudent")
+    public Student addStudent(){
+        Student s = new Student();
+        s.setAge(20);
+        s.setName("Piyush");
+        Student student = studentService.addStudent(s);
+        return  student;
+    }
 }

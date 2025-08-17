@@ -18,7 +18,13 @@ services:
       - 5433:5432
     networks:
       - mynetwork
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
 
 networks:
   mynetwork:
     driver: bridge
+
+#docker volume is used to preserve the data
+volumes:
+  postgres_volume:

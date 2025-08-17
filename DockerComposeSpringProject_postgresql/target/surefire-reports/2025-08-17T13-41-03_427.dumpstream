@@ -1,0 +1,5 @@
+# Created at 2025-08-17T13:41:03.694
+Boot Manifest-JAR contains absolute paths in classpath 'E:\Piyush\pers\deployment\Deployments\DockerComposeSpringProject_postgresql\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
